@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- deployment.yaml
+- service.yaml
+
+namespace: api-requests-counter
+
+images:
+- name: api-requests-counter
+  newName: api-requests-counter
+  newTag: latest
+- name: api-requests-counter
+  newName: api-requests-counter

@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-requests-counter
+spec:
+  selector:
+    matchLabels:
+      app: api-requests-counter
+  template:
+    metadata:
+      labels:
+        app: api-requests-counter
+    spec:
+      containers:
+      - name: api-requests-counter
+        image: api-requests-counter
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 3000
+        env:
+        - name: MEMORY_CONNECTION_MODE
+          value: "sentinel"
+        - name: MEMORY_CLIENT_SENTINEL_HOST
+          value: "my-redis.redis.svc.cluster.local"
+        - name: MEMORY_CLIENT_SENTINEL_PORT
+          value: "26379"
+        - name: MEMORY_CLIENT_SENTINEL_PASSWORD
+          value: "123456"
+        - name: MEMORY_CLIENT_SENTINEL_MASTER
+          value: "mymaster"
+        - name: MEMORY_CLIENT_USERNAME
+          value: "default"
+        - name: MEMORY_CLIENT_PASSWORD
+          value: "123456"
+        - name: MEMORY_CLIENT_DB
+          value: "0"
+        resources:
+          limits:
+            cpu: 150m
+            memory: 200Mi
+      
